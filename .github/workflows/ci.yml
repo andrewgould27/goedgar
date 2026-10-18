@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-go@v6
         with:
-          go-version: stable
+          go-version: oldstable
       - name: Check formatting
         run: |
           unformatted=$(gofmt -l .)

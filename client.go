@@ -67,54 +67,6 @@ func NewClient(userAgent string, opts ...Option) *Client {
 	return c
 }
 
-// func (c *Client) getJSON(ctx context.Context, endpoint string, v any) error {
-// 	waitStart := time.Now()
-// 	if err := c.limiter.Wait(ctx); err != nil {
-// 		return fmt.Errorf("goedgar: waiting for rate limiter: %w", err)
-// 	}
-// 	rateWait := time.Since(waitStart)
-
-// 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, endpoint, nil)
-// 	if err != nil {
-// 		return fmt.Errorf("goedgar: building request for %s: %w", endpoint, err)
-// 	}
-// 	req.Header.Set("User-Agent", c.userAgent)
-// 	req.Header.Set("Accept", "application/json")
-
-// 	start := time.Now()
-// 	c.log.DebugContext(ctx, "edgar request", "method", req.Method, "endpoint", endpoint, "rate_wait", rateWait)
-
-// 	resp, err := c.http.Do(req)
-// 	if err != nil {
-// 		c.log.DebugContext(ctx, "edgar request failed", "endpoint", endpoint, "err", err)
-// 		return fmt.Errorf("goedgar: requesting %s: %w", endpoint, err)
-// 	}
-// 	defer func() {
-// 		_, _ = io.Copy(io.Discard, resp.Body)
-// 		_ = resp.Body.Close()
-// 	}()
-
-// 	c.log.DebugContext(ctx, "edgar response",
-// 		"endpoint", endpoint, "status", resp.StatusCode, "duration", time.Since(start))
-
-// 	if resp.StatusCode != http.StatusOK {
-// 		snippet, _ := io.ReadAll(io.LimitReader(resp.Body, 512))
-// 		return &APIError{
-// 			URL:        endpoint,
-// 			StatusCode: resp.StatusCode,
-// 			Status:     resp.Status,
-// 			Body:       strings.TrimSpace(string(snippet)),
-// 		}
-// 	}
-
-// 	if err := json.NewDecoder(resp.Body).Decode(v); err != nil {
-// 		c.log.DebugContext(ctx, "edgar decode failed", "endpoint", endpoint, "err", err)
-// 		return fmt.Errorf("gogoedgar: decoding %s: %w", endpoint, err)
-// 	}
-
-// 	return nil
-// }
-
 func (c *Client) getJSON(ctx context.Context, endpoint string, v any) error {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, endpoint, nil)
 	if err != nil {

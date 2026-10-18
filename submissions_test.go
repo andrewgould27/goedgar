@@ -20,7 +20,9 @@ func TestSubmissions(t *testing.T) {
 			t.Errorf("path = %q, want %q", r.URL.Path, want)
 		}
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(fixture)
+		if _, err := w.Write(fixture); err != nil {
+			t.Errorf("writing response: %v", err)
+		}
 	}))
 	defer srv.Close()
 

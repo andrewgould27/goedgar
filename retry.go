@@ -72,11 +72,7 @@ func isRetryable(err error) bool {
 	}
 
 	var certErr *tls.CertificateVerificationError
-	if errors.As(err, &certErr) {
-		return false
-	}
-
-	return true
+	return !errors.As(err, &certErr)
 }
 
 func parseRetryAfter(h string, now time.Time) time.Duration {

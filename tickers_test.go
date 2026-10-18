@@ -24,10 +24,10 @@ func newTickerServer(t *testing.T) (*httptest.Server, *atomic.Int32) {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/files/company_tickers.json", func(w http.ResponseWriter, r *http.Request) {
 		tickerHits.Add(1)
-		w.Write(tickers)
+		_, _ = w.Write(tickers)
 	})
 	mux.HandleFunc("/submissions/CIK0000320193.json", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(submissions)
+		_, _ = w.Write(submissions)
 	})
 
 	srv := httptest.NewServer(mux)

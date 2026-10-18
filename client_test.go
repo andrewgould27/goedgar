@@ -17,7 +17,7 @@ func TestGetJSON_Success(t *testing.T) {
 			t.Errorf("User-Agent = %q, want %q", got, ua)
 		}
 		w.Header().Set("Content-Type", "application/json")
-		w.Write([]byte(`{"name": "Apple Inc."}`))
+		_, _ = w.Write([]byte(`{"name": "Apple Inc."}`))
 	}))
 	defer srv.Close()
 

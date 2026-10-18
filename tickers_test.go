@@ -1,4 +1,4 @@
-package goedgar
+package edgar
 
 import (
 	"errors"
